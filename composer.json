@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Lab404\\LaravelMailjetSms\\": "src/"
+      "Ghanem\\LaravelSmsmisr\\": "src/"
     }
   },
   "extra": {

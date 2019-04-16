@@ -23,7 +23,7 @@ Attention, SmsMisr autorise uniquement les SMS transactionnels.
 
 - Installation via composer :  
 ```bash
-composer require lab404/laravel-mailjet-sms
+composer require ghanem/laravel-smsmisr
 ```
 
 - (Facultatif) Ajoutez le ServiceProvider dans **config/app.php** :  
@@ -38,8 +38,9 @@ php artisan vendor:publish --provider="Ghanem\LaravelSmsmisr\ServiceProvider"
 
 - Configurez le plugin dans votre `.env` (ou le fichier de config)
 ```
-MAILJETSMS_TOKEN="Votre token SmsMisr"
-MAILJETSMS_FROM="APPNAME"
+SMSMISR_USERNAME="username_smsMisr"
+SMSMISR_PASSWORD="password"
+SMSMISR_FROM="APPNAME"
 ```
 
 ## Usage
@@ -47,11 +48,11 @@ MAILJETSMS_FROM="APPNAME"
 Envoyer un SMS :
 ```php
 // Globalement
-app('smsmisr')->send("Elle est où la poulette ?", "+33610203040");
+app('smsmisr')->send("hello world", "+33610203040");
 
 // DI
 public function myMethod(\Ghanem\LaravelSmsmisr\Smsmisr $mailjet) {
-    $mailjet->send("C'est pas faux", "+33610203040");  
+    $mailjet->send("hello world", "+33610203040");  
 }
 ```
 
