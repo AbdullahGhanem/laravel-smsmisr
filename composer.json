@@ -1,0 +1,30 @@
+{
+  "name": "ghanem/laravel-smsmisr",
+  "description": "Send SMS and SMS Notification via Mailjet for Laravel",
+  "keywords": ["laravel", "laravel5", "sms", "api", "smsmisr", "notification", "channel"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "ِAbdullah Ghanem",
+      "email": "3bdullah.ghanem@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "illuminate/support": ">=5.3",
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lab404\\LaravelMailjetSms\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Ghanem\\LaravelSmsmisr\\ServiceProvider"
+      ]
+    }
+  },
+  "prefer-stable": true
+}

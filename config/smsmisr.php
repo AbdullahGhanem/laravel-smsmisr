@@ -1,0 +1,23 @@
+<?php
+
+return [
+    /*
+     * SMSMISR_ENDPOINT
+     */
+    'endpoint' => env('SMSMISR_ENDPOINT', 'https://smsmisr.com/api/webapi'),
+
+    /*
+     * SMSMISR_USERNAME
+     */
+    'username' => env('SMSMISR_USERNAME'),    
+
+    /*
+     * SMSMISR_PASSWORD
+     */
+    'password' => env('SMSMISR_PASSWORD'),
+
+    /*
+     * SMSMISR_FROM
+     */
+    'from' => env('SMSMISR_FROM'),
+];
