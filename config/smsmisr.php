@@ -19,5 +19,5 @@ return [
     /*
      * SMSMISR_FROM
      */
-    'SENDER' => env('SMSMISR_SENDER'),
+    'sender' => env('SMSMISR_SENDER'),
 ];

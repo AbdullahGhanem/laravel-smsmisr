@@ -31,13 +31,13 @@ If you're using Laravel 5.5 or above, the package will automatically register th
 
 ### Laravel 5.4 and below
 
-Add `Ghanem\LaravelSmsmisr\ServiceProvider` to the `providers` array in your `config/app.php`:
+Add `Ghanem\LaravelSmsmisr\SmsmisrServiceProvider` to the `providers` array in your `config/app.php`:
 
 ```php
 'providers' => [
     // Other service providers...
 
-    Ghanem\LaravelSmsmisr\ServiceProvider::class,
+    Ghanem\LaravelSmsmisr\SmsmisrServiceProvider::class,
 ],
 ```
 
@@ -58,7 +58,7 @@ Or add an alias in your `config/app.php`:
 
 - Publish the config & views by running **smsmisr** :  
 ```bash
-php artisan vendor:publish --provider="Ghanem\LaravelSmsmisr\ServiceProvider"
+php artisan vendor:publish --provider="Ghanem\LaravelSmsmisr\SmsmisrServiceProvider"
 ```
 
 - Then update `config/smsmisr.php` with your credentials. Alternatively, you can update your `.env` file with the following:
@@ -66,7 +66,7 @@ php artisan vendor:publish --provider="Ghanem\LaravelSmsmisr\ServiceProvider"
 ```dotenv
 SMSMISR_USERNAME=my_username
 SMSMISR_PASSWORD=my_password
-SMSMISR_FROM="APPNAME"
+SMSMISR_SENDER=my_sender
 ```
 
 ## Usage
@@ -74,11 +74,11 @@ SMSMISR_FROM="APPNAME"
 Envoyer un SMS :
 ```php
 // Globalement
-app('smsmisr')->send("hello world", "+33610203040");
+app('smsmisr')->send("hello world", "201010101010");
 
 // DI
 public function myMethod(\Ghanem\LaravelSmsmisr\Smsmisr $mailjet) {
-    $mailjet->send("hello world", "+33610203040");  
+    $smsmisr->send("hello world", "201010101010");  
 }
 ```
 
