@@ -1,6 +1,6 @@
 {
   "name": "ghanem/laravel-smsmisr",
-  "description": "Send SMS and SMS Notification via Mailjet for Laravel",
+  "description": "Send SMS and SMS Notification via sms misr for Laravel",
   "keywords": ["laravel", "laravel5", "sms", "api", "smsmisr", "notification", "channel"],
   "license": "MIT",
   "authors": [
