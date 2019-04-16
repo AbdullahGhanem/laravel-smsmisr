@@ -2,7 +2,9 @@
 
 namespace Ghanem\LaravelSmsmisr;
 
-class ServiceProvider extends \Illuminate\Support\ServiceProvider
+use \Illuminate\Support\ServiceProvider
+
+class ServiceProvider extends ServiceProvider
 {
     /** @var bool $defer */
     protected $defer = false;

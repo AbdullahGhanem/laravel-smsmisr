@@ -32,10 +32,8 @@ class Smsmisr
             'connect_timeout' => 3,
             'verify' => false,
             'headers' => [
-                'User-Agent' => 'LaravelSmsmisr/1.0',
                 'Accept' => 'application/json',
                 'Content-Type' => 'appliction/json',
-                'Authorization' => sprintf('Bearer %s', $this->config['token']),
             ],
             'timeout' => 5,
         ]);
@@ -47,16 +45,20 @@ class Smsmisr
      * @param string|null $from
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function send(string $message, string $to, $from = null): ResponseInterface
+    public function send(string $message, string $to, $sender = null): ResponseInterface
     {
-        $from = $from ?? $this->config['from'];
+        $sender = $sender ?? $this->config['sender'];
         $client = $this->buildHttpClient();
 
-        $response = $client->post($this->config['endpoint'], [
-            'json' => [
-                'Text' => $message,
-                'From' => $from,
-                'To' => $to,
+        $response = $client->post($this->config['endpoint'].'/webapi', [
+            'query' => [
+                'username' => $this->config['endpoint'],
+                'password' => $this->config['endpoint'],
+                'sender' => $sender,
+                'language' => 1,
+                'message' => $message,
+                'mobile' => $to,
+                'DelayUntil' => null,
             ]
         ]);
 

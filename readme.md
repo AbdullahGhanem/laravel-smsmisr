@@ -16,8 +16,8 @@ Attention, SmsMisr autorise uniquement les SMS transactionnels.
 ## Requirements
 
 - PHP >= 7
-- Laravel 5.3 à Laravel 5.7
-- Un compte SmsMisr avec un token SMS
+- Laravel 5.3+
+- account in Sms Misr (username and password)
 
 ## Installation
 
@@ -25,21 +25,47 @@ Attention, SmsMisr autorise uniquement les SMS transactionnels.
 ```bash
 composer require ghanem/laravel-smsmisr
 ```
+### Laravel 5.5+
 
-- (Facultatif) Ajoutez le ServiceProvider dans **config/app.php** :  
+If you're using Laravel 5.5 or above, the package will automatically register the `Nexmo` provider and facade.
+
+### Laravel 5.4 and below
+
+Add `Ghanem\LaravelSmsmisr\ServiceProvider` to the `providers` array in your `config/app.php`:
+
 ```php
-Ghanem\LaravelSmsmisr\ServiceProvider::class,
+'providers' => [
+    // Other service providers...
+
+    Ghanem\LaravelSmsmisr\ServiceProvider::class,
+],
 ```
 
-- (Facultatif) Publiez le fichier de config **smsmisr** :  
+If you want to use the facade interface, you can `use` the facade class when needed:
+
+```php
+use Ghanem\LaravelSmsmisr\Smsmisr;
+```
+
+Or add an alias in your `config/app.php`:
+
+```php
+'aliases' => [
+    ...
+    'Smsmisr' => Ghanem\LaravelSmsmisr\Smsmisr::class,
+],
+
+
+- Publish the config & views by running **smsmisr** :  
 ```bash
 php artisan vendor:publish --provider="Ghanem\LaravelSmsmisr\ServiceProvider"
 ```
 
-- Configurez le plugin dans votre `.env` (ou le fichier de config)
-```
-SMSMISR_USERNAME="username_smsMisr"
-SMSMISR_PASSWORD="password"
+- Then update `config/smsmisr.php` with your credentials. Alternatively, you can update your `.env` file with the following:
+
+```dotenv
+SMSMISR_USERNAME=my_username
+SMSMISR_PASSWORD=my_password
 SMSMISR_FROM="APPNAME"
 ```
 
@@ -58,7 +84,8 @@ public function myMethod(\Ghanem\LaravelSmsmisr\Smsmisr $mailjet) {
 
 ## Notifications
 
-Ce plugin est compatible avec les [notifications Laravel](https://laravel.com/docs/5.7/notifications).
+You can use the channel in your via() method inside the notification:
+
 
 ```php
 namespace App\Notifications;
@@ -77,8 +104,7 @@ class ExampleNotification extends Notification
     public function toSmsmisr($notifiable)
     {
     	return new SmsmisrMessage(
-    	    "C'est ça que vous appelez une fondue ?", 
-    	    $notifiable->phonenumber
+    	    $notifiable->phone
         );
     }
 }
@@ -89,27 +115,11 @@ class ExampleNotification extends Notification
 **Ghanem\LaravelSmsmisr\SmsmisrMessage**
 
 ```
-    // Constructeur
     (new SmsmisrMessage(string $message, string $to))
-    
-    // Spécifier le destinataire
         ->to(string $to)
-        
-    // Spécifier l'expéditeur
         ->from(string $from)
-        
-    // Nettoyer les caractères unicodes
         ->unicode(bool $unicode = true)
 ```
-
-### Un mot sur l'unicode
-
-Par défaut les caractères unicodes sont envoyés dans le SMS. La méthode `unicode(bool $unicode = true)`, permet d'activer ou non l'unicode.
-Une fois désactivé, l'unicode sera nettoyé pour ne laisser place qu'aux [caractères GSM 03.38](https://www.etsi.org/deliver/etsi_gts/03/0338/05.00.00_60/gsmts_0338v050000p.pdf).
-
-## Support
-
-N'hésitez pas à utiliser le gestion d'issus pour vos retours.
 
 
 ## Licence

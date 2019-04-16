@@ -7,7 +7,7 @@ class SmsmisrMessage
     /** @var string $message */
     protected $message;
     /** @var string $from */
-    protected $from;
+    protected $sender;
     /** @var string $to */
     protected $to;
     /** @var boolean $unicode */
@@ -17,7 +17,7 @@ class SmsmisrMessage
     {
         $this->message = $message;
         $this->to = $to;
-        $this->from = config('smsmisr.from');
+        $this->sender = config('smsmisr.sender');
     }
 
     public function message(string $message): SmsmisrMessage
@@ -26,9 +26,9 @@ class SmsmisrMessage
         return $this;
     }
 
-    public function from(string $from): SmsmisrMessage
+    public function sender(string $sender): SmsmisrMessage
     {
-        $this->from = $from;
+        $this->sender = $sender;
         return $this;
     }
 
