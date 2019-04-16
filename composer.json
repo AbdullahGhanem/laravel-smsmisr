@@ -22,7 +22,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Ghanem\\LaravelSmsmisr\\ServiceProvider"
+        "Ghanem\\LaravelSmsmisr\\SmsmisrServiceProvider"
       ]
     }
   },
