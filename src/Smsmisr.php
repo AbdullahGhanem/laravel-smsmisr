@@ -8,27 +8,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class Smsmisr
 {
-    /** @var Application $app */
-    protected $app;
-    /** @var array */
-    protected $config = [];
 
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-        $this->loadDefaultOptions();
-    }
-
-    protected function loadDefaultOptions(): Smsmisr
-    {
-        $this->config = $this->app['config']->get('smsmisr');
-        return $this;
-    }
-
-    protected function buildHttpClient(): Client
+    protected function __construct()
     {
         return new Client([
-            'base_uri' => $this->config['endpoint'],
+            'base_uri' => config('smsmisr.endpoint'),
         ]);
     }
 
@@ -40,13 +24,13 @@ class Smsmisr
      */
     public function send(string $message, string $to, $sender = null)
     {
-        $sender = $sender ?? $this->config['sender'];
+        $sender = $sender ?? config('smsmisr.sender');
         $client = $this->buildHttpClient();
 
         $response = $client->request('POST', 'webapi', [
             'query' => [
-                'username' => $this->config['username'],
-                'password' => $this->config['password'],
+                'username' => config('smsmisr.username'),
+                'password' => config('smsmisr.password'),
                 'sender' => $sender,
                 'language' => 1,
                 'message' => $message,
@@ -66,13 +50,13 @@ class Smsmisr
      */
     public function sendVerify(string $message, string $to, $sender = null): ResponseInterface
     {
-        $sender = $sender ?? $this->config['sender'];
+        $sender = $sender ?? config('smsmisr.sender');
         $client = $this->buildHttpClient();
 
         $response = $client->request('POST', 'verify', [
             'query' => [
-                'username' => $this->config['username'],
-                'password' => $this->config['password'],
+                'username' => config('smsmisr.username'),
+                'password' => config('smsmisr.password'),
                 'sender' => $sender,
                 'language' => 1,
                 'message' => $message,
@@ -90,14 +74,13 @@ class Smsmisr
      * @param string|null $from
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function balance(): ResponseInterface
+    public static  function balance(): ResponseInterface
     {
-        $client = $this->buildHttpClient();
 
         $response = $client->request('POST', 'Request', [
             'query' => [
-                'username' => $this->config['username'],
-                'password' => $this->config['password'],
+                'username' => config('smsmisr.username'),
+                'password' => config('smsmisr.password'),
                 'request' => 'status',
                 'SMSID' => 7511,
             ]
@@ -115,12 +98,11 @@ class Smsmisr
      */
     public function balanceVerify()
     {
-        $client = $this->buildHttpClient();
 
         $response = $client->request('POST', 'vRequest', [
             'query' => [
-                'username' => $this->config['username'],
-                'password' => $this->config['password'],
+                'username' => config('smsmisr.username'),
+                'password' => config('smsmisr.password'),
                 'request' => 'status',
                 'SMSID' => 7511,
             ]
