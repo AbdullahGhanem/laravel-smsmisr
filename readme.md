@@ -9,8 +9,6 @@ Attention, SmsMisr autorise uniquement les SMS transactionnels.
 - [Installation](#installation)
 - [Usage](#usage)
 - [Notifications](#notifications)
-- [Support](#support)
-- [Auteur](#auteur)
 - [Licence](#licence)
 
 ## Requirements
@@ -27,7 +25,7 @@ composer require ghanem/laravel-smsmisr
 ```
 ### Laravel 5.5+
 
-If you're using Laravel 5.5 or above, the package will automatically register the `Nexmo` provider and facade.
+If you're using Laravel 5.5 or above, the package will automatically register the `Smsmisr` provider and facade.
 
 ### Laravel 5.4 and below
 
