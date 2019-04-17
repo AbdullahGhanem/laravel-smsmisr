@@ -45,7 +45,7 @@ class Smsmisr
      * @param string|null $from
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function send(string $message, string $to, $sender = null): ResponseInterface
+    public function send(string $message, string $to, $sender = null)
     {
         $sender = $sender ?? $this->config['sender'];
         $client = $this->buildHttpClient();
@@ -59,6 +59,76 @@ class Smsmisr
                 'message' => $message,
                 'mobile' => $to,
                 'DelayUntil' => null,
+            ]
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * @param string $message
+     * @param string $to
+     * @param string|null $from
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function sendVerify(string $message, string $to, $sender = null)
+    {
+        $sender = $sender ?? $this->config['sender'];
+        $client = $this->buildHttpClient();
+
+        $response = $client->post($this->config['endpoint'].'/verify', [
+            'query' => [
+                'username' => $this->config['endpoint'],
+                'password' => $this->config['endpoint'],
+                'sender' => $sender,
+                'language' => 1,
+                'message' => $message,
+                'mobile' => $to,
+                'DelayUntil' => null,
+            ]
+        ]);
+
+        return $response;
+    }
+
+    /**
+     * @param string $message
+     * @param string $to
+     * @param string|null $from
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function balance()
+    {
+        $client = $this->buildHttpClient();
+
+        $response = $client->post($this->config['endpoint'].'/Request', [
+            'query' => [
+                'username' => $this->config['endpoint'],
+                'password' => $this->config['endpoint'],
+                'request' => 'status',
+                'SMSID' => 7511,
+            ]
+        ]);
+
+        return $response;
+    }
+    
+    /**
+     * @param string $message
+     * @param string $to
+     * @param string|null $from
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function balanceVerify()
+    {
+        $client = $this->buildHttpClient();
+
+        $response = $client->post($this->config['endpoint'].'/vRequest', [
+            'query' => [
+                'username' => $this->config['endpoint'],
+                'password' => $this->config['endpoint'],
+                'request' => 'status',
+                'SMSID' => 7511,
             ]
         ]);
 

@@ -6,9 +6,15 @@ use \Illuminate\Support\ServiceProvider;
 
 class SmsmisrServiceProvider extends ServiceProvider
 {
-    /** @var bool $defer */
+    /**
+     * @var bool $defer Indicates if loading of the provider is deferred.
+     */
     protected $defer = false;
-    /** @var string $configName */
+
+    /** 
+     * [$configName description]
+     * @var string
+     */
     protected $configName = 'smsmisr';
 
     public function register()
