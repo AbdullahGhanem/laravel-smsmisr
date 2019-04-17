@@ -12,6 +12,6 @@ class Smsmisr extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return Smsmisr::class;
+        return 'smsmisr';
     }
 }

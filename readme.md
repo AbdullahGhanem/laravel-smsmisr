@@ -41,12 +41,6 @@ Add `Ghanem\LaravelSmsmisr\SmsmisrServiceProvider` to the `providers` array in y
 ],
 ```
 
-If you want to use the facade interface, you can `use` the facade class when needed:
-
-```php
-use Ghanem\LaravelSmsmisr\Smsmisr;
-```
-
 Or add an alias in your `config/app.php`:
 
 ```php
@@ -54,6 +48,7 @@ Or add an alias in your `config/app.php`:
     ...
     'Smsmisr' => Ghanem\LaravelSmsmisr\Smsmisr::class,
 ],
+```
 
 
 - Publish the config & views by running **smsmisr** :  
@@ -71,15 +66,19 @@ SMSMISR_SENDER=my_sender
 
 ## Usage
 
-Envoyer un SMS :
-```php
-// Globalement
-app('smsmisr')->send("hello world", "201010101010");
+If you want to use the facade interface, you can `use` the facade class when needed:
 
-// DI
-public function myMethod(\Ghanem\LaravelSmsmisr\Smsmisr $mailjet) {
-    $smsmisr->send("hello world", "201010101010");  
+```php
+use use Ghanem\LaravelSmsmisr\Facades\Smsmisr;
+
+public function myMethod() {
+    Smsmisr::send("hello world", "201010101010");  
 }
+```
+if you need use golbal:
+```php
+// Global
+app('smsmisr')->send("hello world", "201010101010");
 ```
 
 ## Notifications

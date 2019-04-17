@@ -2,6 +2,7 @@
 
 namespace Ghanem\LaravelSmsmisr;
 
+use Ghanem\LaravelSmsmisr\Smsmisr;
 use \Illuminate\Support\ServiceProvider;
 
 class SmsmisrServiceProvider extends ServiceProvider
@@ -9,16 +10,18 @@ class SmsmisrServiceProvider extends ServiceProvider
     /**
      * @var bool $defer Indicates if loading of the provider is deferred.
      */
-    protected $defer = true;
+    protected $defer = false;
 
-    /** 
-     * [$configName description]
-     * @var string
-     */
-    protected $configName = 'smsmisr';
+
+    public function boot()
+    {
+        $this->publishes([$this->configPath() => config_path('smsmisr.php')]);
+    }
 
     public function register()
     {
+        $this->mergeConfigFrom($this->configPath(), 'config');
+
         $this->app->singleton('smsmisr', function($app) {
             return new Smsmisr();
         });
@@ -30,12 +33,6 @@ class SmsmisrServiceProvider extends ServiceProvider
         $this->app->alias('smsmisr', Smsmisr::class);
     }
 
-    public function boot()
-    {
-        $configPath = __DIR__ . '/../config/' . $this->configName . '.php';
-        $this->publishes([$configPath => config_path($this->configName . '.php')], 'config');
-        $this->mergeConfigFrom($configPath, $this->configName);
-    }
 
 
     /**
@@ -45,6 +42,12 @@ class SmsmisrServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('smsg',           Smsmisr::class,);
+        return array('smsmisr', Smsmisr::class);
+    }
+
+
+    protected function configPath()
+    {
+        return __DIR__ . '/../config/smsmisr.php';
     }
 }

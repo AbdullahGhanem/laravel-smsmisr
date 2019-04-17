@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 class Smsmisr
 {
 
-    protected function __construct()
+    protected function buildHttpClient()
     {
         return new Client([
             'base_uri' => config('smsmisr.endpoint'),
@@ -38,8 +38,8 @@ class Smsmisr
                 'DelayUntil' => null,
             ]
         ]);
-
-        return $response;
+        $array = json_decode($response->getBody(), true) ;
+        return $array;
     }
 
     /**
@@ -48,7 +48,7 @@ class Smsmisr
      * @param string|null $from
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function sendVerify(string $message, string $to, $sender = null): ResponseInterface
+    public function sendVerify(string $message, string $to, $sender = null)
     {
         $sender = $sender ?? config('smsmisr.sender');
         $client = $this->buildHttpClient();
@@ -64,8 +64,8 @@ class Smsmisr
                 'DelayUntil' => null,
             ]
         ]);
-
-        return $response;
+        $array = json_decode($response->getBody(), true) ;
+        return $array;
     }
 
     /**
@@ -74,20 +74,19 @@ class Smsmisr
      * @param string|null $from
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public static  function balance(): ResponseInterface
+    public function balance()
     {
-
+        $client = $this->buildHttpClient();
         $response = $client->request('POST', 'Request', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
                 'request' => 'status',
-                'SMSID' => 7511,
+                'SMSID' => 4945703,
             ]
         ]);
-        // dd($response->getBody());
-
-        return $response;
+        $array = json_decode($response->getBody(), true) ;
+        return $array;
     }
     
     /**
@@ -98,16 +97,18 @@ class Smsmisr
      */
     public function balanceVerify()
     {
+        $client = $this->buildHttpClient();
 
         $response = $client->request('POST', 'vRequest', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
                 'request' => 'status',
-                'SMSID' => 7511,
+                'SMSID' => 72973,
             ]
         ]);
+        $array = json_decode($response->getBody(), true) ;
 
-        return $response;
+        return $array;
     }
 }
