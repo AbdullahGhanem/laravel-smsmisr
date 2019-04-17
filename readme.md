@@ -1,9 +1,8 @@
-# Laravel SMS Misr
+# Laravel SMS Misr (EGYPT)
 
-Ce plugin vous permet d'envoyer des SMS et des notifications SMS via [SmsMisr](https://www.smsmisr.com/) depuis votre application Laravel. 
-Attention, SmsMisr autorise uniquement les SMS transactionnels.
+This plugin allows you to send SMS and SMS notifications via [SmsMisr](https://www.smsmisr.com/) from your Laravel application.
 
-## Sommaire
+## Summary
 
 - [Requirements](#requirements)
 - [Installation](#installation)
