@@ -28,14 +28,7 @@ class Smsmisr
     protected function buildHttpClient(): Client
     {
         return new Client([
-            'allow_redirects' => false,
-            'connect_timeout' => 3,
-            'verify' => false,
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'appliction/json',
-            ],
-            'timeout' => 5,
+            'base_uri' => $this->config['endpoint'],
         ]);
     }
 
@@ -50,7 +43,7 @@ class Smsmisr
         $sender = $sender ?? $this->config['sender'];
         $client = $this->buildHttpClient();
 
-        $response = $client->post($this->config['endpoint'].'/webapi', [
+        $response = $client->request('POST', 'webapi', [
             'query' => [
                 'username' => $this->config['username'],
                 'password' => $this->config['password'],
@@ -71,12 +64,12 @@ class Smsmisr
      * @param string|null $from
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function sendVerify(string $message, string $to, $sender = null)
+    public function sendVerify(string $message, string $to, $sender = null): ResponseInterface
     {
         $sender = $sender ?? $this->config['sender'];
         $client = $this->buildHttpClient();
 
-        $response = $client->post($this->config['endpoint'].'/verify', [
+        $response = $client->request('POST', 'verify', [
             'query' => [
                 'username' => $this->config['username'],
                 'password' => $this->config['password'],
@@ -97,11 +90,11 @@ class Smsmisr
      * @param string|null $from
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function balance()
+    public function balance(): ResponseInterface
     {
         $client = $this->buildHttpClient();
 
-        $response = $client->post($this->config['endpoint'].'/Request', [
+        $response = $client->request('POST', 'Request', [
             'query' => [
                 'username' => $this->config['username'],
                 'password' => $this->config['password'],
@@ -109,6 +102,7 @@ class Smsmisr
                 'SMSID' => 7511,
             ]
         ]);
+        // dd($response->getBody());
 
         return $response;
     }
@@ -123,7 +117,7 @@ class Smsmisr
     {
         $client = $this->buildHttpClient();
 
-        $response = $client->post($this->config['endpoint'].'/vRequest', [
+        $response = $client->request('POST', 'vRequest', [
             'query' => [
                 'username' => $this->config['username'],
                 'password' => $this->config['password'],
