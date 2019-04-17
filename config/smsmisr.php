@@ -4,7 +4,7 @@ return [
     /*
      * SMSMISR_ENDPOINT
      */
-    'endpoint' => env('SMSMISR_ENDPOINT', 'https://smsmisr.com/api'),
+    'endpoint' => env('SMSMISR_ENDPOINT', 'https://smsmisr.com/api/'),
 
     /*
      * SMSMISR_USERNAME
