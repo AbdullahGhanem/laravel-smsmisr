@@ -67,10 +67,10 @@ If you want to use the facade interface, you can `use` the facade class when nee
 
 ```php
 use use Ghanem\LaravelSmsmisr\Facades\Smsmisr;
-
-public function myMethod() {
-    Smsmisr::send("hello world", "201010101010");  
-}
+    ...
+    public function myMethod() {
+        Smsmisr::send("hello world", "201010101010");  
+    }
 ```
 if you need use golbal:
 ```php
