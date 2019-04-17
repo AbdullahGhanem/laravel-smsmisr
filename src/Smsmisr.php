@@ -52,8 +52,8 @@ class Smsmisr
 
         $response = $client->post($this->config['endpoint'].'/webapi', [
             'query' => [
-                'username' => $this->config['endpoint'],
-                'password' => $this->config['endpoint'],
+                'username' => $this->config['username'],
+                'password' => $this->config['password'],
                 'sender' => $sender,
                 'language' => 1,
                 'message' => $message,
@@ -78,8 +78,8 @@ class Smsmisr
 
         $response = $client->post($this->config['endpoint'].'/verify', [
             'query' => [
-                'username' => $this->config['endpoint'],
-                'password' => $this->config['endpoint'],
+                'username' => $this->config['username'],
+                'password' => $this->config['password'],
                 'sender' => $sender,
                 'language' => 1,
                 'message' => $message,
@@ -103,8 +103,8 @@ class Smsmisr
 
         $response = $client->post($this->config['endpoint'].'/Request', [
             'query' => [
-                'username' => $this->config['endpoint'],
-                'password' => $this->config['endpoint'],
+                'username' => $this->config['username'],
+                'password' => $this->config['password'],
                 'request' => 'status',
                 'SMSID' => 7511,
             ]
@@ -125,8 +125,8 @@ class Smsmisr
 
         $response = $client->post($this->config['endpoint'].'/vRequest', [
             'query' => [
-                'username' => $this->config['endpoint'],
-                'password' => $this->config['endpoint'],
+                'username' => $this->config['username'],
+                'password' => $this->config['password'],
                 'request' => 'status',
                 'SMSID' => 7511,
             ]
