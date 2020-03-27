@@ -6,7 +6,7 @@ class SmsmisrMessage
 {
     /** @var string $message */
     protected $message;
-    /** @var string $from */
+    /** @var string $sender */
     protected $sender;
     /** @var string $to */
     protected $to;
@@ -53,8 +53,8 @@ class SmsmisrMessage
             case 'to':
                 return $this->to;
                 break;
-            case 'from':
-                return $this->from;
+            case 'sender':
+                return $this->sender;
                 break;
             default:
                 throw new \InvalidArgumentException();
