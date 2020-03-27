@@ -19,9 +19,9 @@ class SmsmisrChannel
         $message = $notification->toSmsmisr($notifiable);
 
         try {
-            $response = $this->client->send($message->message, $message->to, $message->from);
+            $response = $this->client->send($message->message, $message->to, $message->sender);
 
-            if ($response->getBody()->getContents()['Status']['Code'] == 2) {
+            if ($response['Code'] == 1901) {
                 return true;
             }
         } catch (\Exception $e) {
