@@ -8,10 +8,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class Smsmisr
 {
-
-    protected function buildHttpClient()
+    public $client;
+    
+    public function __construct()
     {
-        return new Client([
+        $this->client = new Client([
             'base_uri' => config('smsmisr.endpoint'),
         ]);
     }
@@ -25,9 +26,8 @@ class Smsmisr
     public function send(string $message, string $to, $sender = null)
     {
         $sender = $sender ?? config('smsmisr.sender');
-        $client = $this->buildHttpClient();
-
-        $response = $client->request('POST', 'webapi', [
+        
+        $response = $this->client->request('POST', 'webapi', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
@@ -51,9 +51,8 @@ class Smsmisr
     public function sendVerify(string $message, string $to, $sender = null)
     {
         $sender = $sender ?? config('smsmisr.sender');
-        $client = $this->buildHttpClient();
-
-        $response = $client->request('POST', 'verify', [
+        
+        $response = $this->client->request('POST', 'verify', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
@@ -76,8 +75,7 @@ class Smsmisr
      */
     public function balance()
     {
-        $client = $this->buildHttpClient();
-        $response = $client->request('POST', 'Request', [
+        $response = $this->client->request('POST', 'Request', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
@@ -97,9 +95,8 @@ class Smsmisr
      */
     public function balanceVerify()
     {
-        $client = $this->buildHttpClient();
 
-        $response = $client->request('POST', 'vRequest', [
+        $response = $this->client->request('POST', 'vRequest', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
