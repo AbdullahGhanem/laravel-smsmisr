@@ -100,6 +100,7 @@ class ExampleNotification extends Notification
     public function toSmsmisr($notifiable)
     {
     	return new SmsmisrMessage(
+            'Your message here',
     	    $notifiable->phone
         );
     }
