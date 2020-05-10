@@ -95,7 +95,6 @@ class Smsmisr
      */
     public function balanceVerify()
     {
-
         $response = $this->client->request('POST', 'vRequest', [
             'query' => [
                 'username' => config('smsmisr.username'),
