@@ -24,7 +24,10 @@
         "laravel": {
             "providers": [
                 "Ghanem\\LaravelSmsmisr\\SmsmisrServiceProvider"
-            ]
+            ],
+            "aliases" : {
+                "Smsmisr" : "Ghanem\\LaravelSmsmisr\\Smsmisr::class",
+           },
         }
     },
     "prefer-stable": true
