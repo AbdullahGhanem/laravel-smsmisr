@@ -1,34 +1,32 @@
 {
-    "name": "ghanem/laravel-smsmisr",
-    "description": "Send SMS and SMS Notification via sms misr for Laravel",
-    "keywords": ["laravel", "laravel5", "sms", "api", "smsmisr", "notification", "channel"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "ِAbdullah Ghanem",
-            "email": "3bdullah.ghanem@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=7.0",
-        "illuminate/support": ">=5.3",
-        "symfony/psr-http-message-bridge": "^1.2",
-        "guzzlehttp/guzzle": "^6.3"
-    },
-    "autoload": {
-        "psr-4": {
-            "Ghanem\\LaravelSmsmisr\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Ghanem\\LaravelSmsmisr\\SmsmisrServiceProvider"
-            ],
-            "aliases" : {
-                "Smsmisr": "Ghanem\\LaravelSmsmisr\\Smsmisr::class",
-           },
-        }
-    },
-    "prefer-stable": true
+	"name": "ghanem/laravel-smsmisr",
+	"description": "Send SMS and SMS Notification via sms misr for Laravel",
+	"keywords": ["laravel", "laravel5", "sms", "api", "smsmisr", "notification", "channel"],
+	"license": "MIT",
+	"authors": [{
+		"name": "ِAbdullah Ghanem",
+		"email": "3bdullah.ghanem@gmail.com"
+	}],
+	"require": {
+		"php": ">=7.0",
+		"illuminate/support": ">=5.3",
+		"symfony/psr-http-message-bridge": "^1.2",
+		"guzzlehttp/guzzle": "^6.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"Ghanem\\LaravelSmsmisr\\": "src/"
+		}
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Ghanem\\LaravelSmsmisr\\SmsmisrServiceProvider"
+			],
+			"aliases": {
+				"Smsmisr": "Ghanem\\LaravelSmsmisr\\Smsmisr"
+			}
+		}
+	},
+	"prefer-stable": true
 }
