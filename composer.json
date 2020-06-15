@@ -25,8 +25,8 @@
             "providers": [
                 "Ghanem\\LaravelSmsmisr\\SmsmisrServiceProvider"
             ],
-            aliases' => {
-                "Smsmisr" : Ghanem\LaravelSmsmisr\Smsmisr::class,
+            "aliases" : {
+                "Smsmisr" : "Ghanem\LaravelSmsmisr\Smsmisr::class",
            },
         }
     },
