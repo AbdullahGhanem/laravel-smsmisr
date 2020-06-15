@@ -21,9 +21,10 @@ class Smsmisr
      * @param string $message
      * @param string $to
      * @param string|null $from
+     * @param int $language
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function send(string $message, string $to, $sender = null)
+    public function send(string $message, string $to, $sender = null, $language = 1)
     {
         $sender = $sender ?? config('smsmisr.sender');
         
@@ -32,7 +33,7 @@ class Smsmisr
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
                 'sender' => $sender,
-                'language' => 1,
+                'language' => $language,
                 'message' => $message,
                 'mobile' => $to,
                 'DelayUntil' => null,
@@ -46,9 +47,10 @@ class Smsmisr
      * @param string $message
      * @param string $to
      * @param string|null $from
+     * @param int $language
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function sendVerify(string $message, string $to, $sender = null)
+    public function sendVerify(string $message, string $to, $sender = null, $language = 1)
     {
         $sender = $sender ?? config('smsmisr.sender');
         
@@ -57,7 +59,7 @@ class Smsmisr
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
                 'sender' => $sender,
-                'language' => 1,
+                'language' => $language,
                 'message' => $message,
                 'mobile' => $to,
                 'DelayUntil' => null,
