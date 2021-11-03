@@ -1,5 +1,7 @@
 # Laravel SMS Misr (EGYPT)
 
+[![Latest Stable Version](https://poser.pugx.org/ghanem/laravel-smsmisr/v/stable)](https://packagist.org/packages/ghanem/laravel-smsmisr) [![Total Downloads](https://poser.pugx.org/ghanem/laravel-smsmisr/downloads)](https://packagist.org/packages/ghanem/laravel-smsmisr) [![Latest Unstable Version](https://poser.pugx.org/ghanem/laravel-smsmisr/v/unstable)](https://packagist.org/packages/ghanem/laravel-smsmisr) [![License](https://poser.pugx.org/ghanem/laravel-smsmisr/license)](https://packagist.org/packages/ghanem/laravel-smsmisr)
+
 Laravel Package that's allows you to send SMS and SMS notifications via [SmsMisr](https://www.smsmisr.com/) from your Laravel application.
 
 ## Summary
