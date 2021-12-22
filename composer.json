@@ -10,7 +10,7 @@
 	"require": {
 		"php": "^8.0",
 		"illuminate/support": ">=5.3",
-		"symfony/psr-http-message-bridge": "^1.2",
+		"symfony/psr-http-message-bridge": "^1.2|^2.0",
 		"guzzlehttp/guzzle": "^6.0|^7.0"
 	},
 	"autoload": {
