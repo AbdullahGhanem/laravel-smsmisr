@@ -20,4 +20,14 @@ return [
      * SMSMISR_FROM
      */
     'sender' => env('SMSMISR_SENDER'),
+
+    /*
+     * SMSMISR_M_SIGNATURE
+     */
+    'm_signature' => env('SMSMISR_M_SIGNATURE'),
+
+    /*
+     * SMSMISR_TOKEN
+     */
+    'token' => env('SMSMISR_TOKEN'),
 ];
