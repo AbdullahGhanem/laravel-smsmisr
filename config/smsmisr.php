@@ -9,7 +9,7 @@ return [
     /*
      * SMSMISR_USERNAME
      */
-    'username' => env('SMSMISR_USERNAME'),    
+    'username' => env('SMSMISR_USERNAME'),
 
     /*
      * SMSMISR_PASSWORD
@@ -30,4 +30,14 @@ return [
      * SMSMISR_TOKEN
      */
     'token' => env('SMSMISR_TOKEN'),
+
+    /*
+     * SMSMISR_SMS_ID
+     */
+    'sms_id' => env('SMSMISR_SMS_ID', 4945703),
+
+    /*
+     * SMSMISR_SMS_VERIFY_ID
+     */
+    'sms_verify_id' => env('SMSMISR_SMS_ID', 72973),
 ];
