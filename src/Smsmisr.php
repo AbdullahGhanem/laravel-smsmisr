@@ -9,6 +9,13 @@ use Psr\Http\Message\ResponseInterface;
 class Smsmisr
 {
     /**
+     * Codes FROM SMSMISR.
+     */
+    public const SMSMISR_SUCCESS_CODE = 1901;
+    public const SMSMISR_VERIFY_SUCCESS_CODE = 4901;
+    public const SMSMISR_BALANCE_SUCCESS_CODE = 6000;
+
+    /**
      * GuzzleHttp\Client.
      * @var Client
      */
@@ -109,5 +116,22 @@ class Smsmisr
             ]
         ]);
         return json_decode($response->getBody(), true);
+    }
+
+    /**
+     * Helper Function to determine if the request was successful or not
+     *
+     * @param array|ResponseInterface $responseCode
+     * @return bool
+     */
+    public function isSuccessful($responseCode): bool
+    {
+        if ($responseCode == null || !is_array($responseCode) || !array_key_exists('code', $responseCode)) return false;
+
+        if ($responseCode['code'] == self::SMSMISR_SUCCESS_CODE) return true;
+        if ($responseCode['code'] == self::SMSMISR_VERIFY_SUCCESS_CODE) return true;
+        if ($responseCode['code'] == self::SMSMISR_BALANCE_SUCCESS_CODE) return true;
+
+        return false;
     }
 }
