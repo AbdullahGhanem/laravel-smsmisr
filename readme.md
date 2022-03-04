@@ -14,8 +14,8 @@ Laravel Package that's allows you to send SMS and SMS notifications via [SmsMisr
 
 ## Requirements
 
-- PHP >= 7
-- Laravel 5.3+
+- PHP >= 8
+- Laravel 8+
 - account in Sms Misr (username and password)
 
 ## Installation
