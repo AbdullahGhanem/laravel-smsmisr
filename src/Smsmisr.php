@@ -3,13 +3,24 @@
 namespace Ghanem\LaravelSmsmisr;
 
 use GuzzleHttp\Client;
-use Illuminate\Contracts\Foundation\Application;
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
 class Smsmisr
 {
+    /**
+     * Codes FROM SMSMISR.
+     */
+    public const SMSMISR_SUCCESS_CODE = 1901;
+    public const SMSMISR_VERIFY_SUCCESS_CODE = 4901;
+    public const SMSMISR_BALANCE_SUCCESS_CODE = 6000;
+
+    /**
+     * GuzzleHttp\Client.
+     * @var Client
+     */
     public $client;
-    
+
     public function __construct()
     {
         $this->client = new Client([
@@ -18,16 +29,19 @@ class Smsmisr
     }
 
     /**
+     * Send Normal SMS using SMSMISR API.
+     *
      * @param string $message
      * @param string $to
-     * @param string|null $from
+     * @param string|null $sender
      * @param int $language
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return array|ResponseInterface
+     * @throws GuzzleException
      */
-    public function send(string $message, string $to, $sender = null, $language = 1)
+    public function send(string $message, string $to, ?string $sender = null, int $language = 1)
     {
         $sender = $sender ?? config('smsmisr.sender');
-        
+
         $response = $this->client->request('POST', 'webapi', [
             'query' => [
                 'username' => config('smsmisr.username'),
@@ -39,41 +53,38 @@ class Smsmisr
                 'DelayUntil' => null,
             ]
         ]);
-        $array = json_decode($response->getBody(), true) ;
-        return $array;
+        return json_decode($response->getBody(), true);
     }
 
     /**
-     * @param string $message
+     * Send Verify SMS using SMSMISR API.
+     *
+     * @param string $code
      * @param string $to
-     * @param string|null $from
-     * @param int $language
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return array|ResponseInterface
+     * @throws GuzzleException
      */
-    public function sendVerify(string $message, string $to, $sender = null, $language = 1)
+    public function sendVerify(string $code, string $to)
     {
-        $sender = $sender ?? config('smsmisr.sender');
-        
-        $response = $this->client->request('POST', 'verify', [
+        $response = $this->client->request('POST', 'vSMS', [
             'query' => [
-                'username' => config('smsmisr.username'),
+                'Username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
-                'sender' => $sender,
-                'language' => $language,
-                'message' => $message,
+                'Msignature' => config('smsmisr.m_signature'),
+                'Token' => config('smsmisr.token'),
                 'mobile' => $to,
                 'DelayUntil' => null,
+                'Code' => $code,
             ]
         ]);
-        $array = json_decode($response->getBody(), true) ;
-        return $array;
+        return json_decode($response->getBody(), true);
     }
 
     /**
-     * @param string $message
-     * @param string $to
-     * @param string|null $from
-     * @return \Psr\Http\Message\ResponseInterface
+     * Check Normal SMS Balance using SMSMISR API.
+     *
+     * @return array|ResponseInterface
+     * @throws GuzzleException
      */
     public function balance()
     {
@@ -82,18 +93,17 @@ class Smsmisr
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
                 'request' => 'status',
-                'SMSID' => 4945703,
+                'SMSID' => config('smsmisr.sms_id'),
             ]
         ]);
-        $array = json_decode($response->getBody(), true) ;
-        return $array;
+        return json_decode($response->getBody(), true);
     }
-    
+
     /**
-     * @param string $message
-     * @param string $to
-     * @param string|null $from
-     * @return \Psr\Http\Message\ResponseInterface
+     * Check Verify SMS Balance using SMSMISR API.
+     *
+     * @return array|ResponseInterface
+     * @throws GuzzleException
      */
     public function balanceVerify()
     {
@@ -102,11 +112,26 @@ class Smsmisr
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
                 'request' => 'status',
-                'SMSID' => 72973,
+                'SMSID' => config('smsmisr.sms_verify_id'),
             ]
         ]);
-        $array = json_decode($response->getBody(), true) ;
+        return json_decode($response->getBody(), true);
+    }
 
-        return $array;
+    /**
+     * Helper Function to determine if the request was successful or not
+     *
+     * @param array|ResponseInterface $responseCode
+     * @return bool
+     */
+    public function isSuccessful($responseCode): bool
+    {
+        if ($responseCode == null || !is_array($responseCode) || !array_key_exists('code', $responseCode)) return false;
+
+        if ($responseCode['code'] == self::SMSMISR_SUCCESS_CODE) return true;
+        if ($responseCode['code'] == self::SMSMISR_VERIFY_SUCCESS_CODE) return true;
+        if ($responseCode['code'] == self::SMSMISR_BALANCE_SUCCESS_CODE) return true;
+
+        return false;
     }
 }
