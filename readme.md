@@ -124,3 +124,8 @@ class ExampleNotification extends Notification
 ## Licence
 
 MIT
+
+
+## Sponsor
+
+[💚️ Become a Sponsor](https://github.com/sponsors/AbdullahGhanem)
