@@ -42,8 +42,9 @@ class Smsmisr
     {
         $sender = $sender ?? config('smsmisr.sender');
 
-        $response = $this->client->request('POST', 'webapi', [
+        $response = $this->client->request('POST', 'SMS', [
             'query' => [
+                'environment'=> config('smsmisr.environment'),
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
                 'sender' => $sender,
@@ -64,17 +65,17 @@ class Smsmisr
      * @return array|ResponseInterface
      * @throws GuzzleException
      */
-    public function sendVerify(string $code, string $to)
+    public function sendVerify(string $code, string $to, ?string $sender = null, string $template)
     {
-        $response = $this->client->request('POST', 'vSMS', [
+        $response = $this->client->request('POST', 'OTP', [
             'query' => [
-                'Username' => config('smsmisr.username'),
+                'environment'=> config('smsmisr.environment'),
+                'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
-                'Msignature' => config('smsmisr.m_signature'),
-                'Token' => config('smsmisr.token'),
+                'sender' => $sender,
                 'mobile' => $to,
-                'DelayUntil' => null,
-                'Code' => $code,
+                'template'=> $template,
+                'otp' => $code,
             ]
         ]);
         return json_decode($response->getBody(), true);
@@ -88,12 +89,10 @@ class Smsmisr
      */
     public function balance()
     {
-        $response = $this->client->request('POST', 'Request', [
+        $response = $this->client->request('POST', 'Balance', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
-                'request' => 'status',
-                'SMSID' => config('smsmisr.sms_id'),
             ]
         ]);
         return json_decode($response->getBody(), true);
@@ -107,12 +106,10 @@ class Smsmisr
      */
     public function balanceVerify()
     {
-        $response = $this->client->request('POST', 'vRequest', [
+        $response = $this->client->request('POST', 'Balance', [
             'query' => [
                 'username' => config('smsmisr.username'),
                 'password' => config('smsmisr.password'),
-                'request' => 'status',
-                'SMSID' => config('smsmisr.sms_verify_id'),
             ]
         ]);
         return json_decode($response->getBody(), true);

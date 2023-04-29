@@ -3,6 +3,12 @@
 return [
     /*
      * SMSMISR_ENDPOINT
+     * 1 For Live , 2 For Test
+     */
+    'environment' => env('SMSMISR_ENVIRONMENT', 1),
+
+    /*
+     * SMSMISR_ENDPOINT
      */
     'endpoint' => env('SMSMISR_ENDPOINT', 'https://smsmisr.com/api/'),
 
